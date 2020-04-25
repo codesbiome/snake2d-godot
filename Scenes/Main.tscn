@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Images/Snake.png" type="Texture" id=1]
 
 [node name="Main" type="Node"]
 
@@ -23,3 +25,10 @@ text = "Snake 2D"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+texture = ExtResource( 1 )
+centered = false
+region_rect = Rect2( 64, 64, 0, 0 )
