@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Images/Snake.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Snake.gd" type="Script" id=2]
 
 [node name="Main" type="Node"]
 
@@ -32,3 +33,4 @@ __meta__ = {
 texture = ExtResource( 1 )
 centered = false
 region_rect = Rect2( 64, 64, 0, 0 )
+script = ExtResource( 2 )
