@@ -17,7 +17,9 @@ func _physics_process(delta):
 	movement_step_handler(delta);
 	pass
 
+#-------------------------------------
 # Calls movement at certain tickrate
+#-------------------------------------
 func movement_step_handler(deltaTime: float):
 	# Accmulate with Delta time
 	_accumulator += deltaTime;
@@ -29,8 +31,9 @@ func movement_step_handler(deltaTime: float):
 		# Call movement
 		movement(MOVEMENT_STEP_SIZE);
 
-
-# Move Snake
+#-------------------------------------
+# Snake Movement
+#-------------------------------------
 func movement(stepSize: int):
 	# Lets move snake
 	translate(_direction * stepSize);
