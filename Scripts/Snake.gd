@@ -14,6 +14,7 @@ func _ready():
 
 # Called during the physics processing step of the main loop.
 func _physics_process(delta):
+	input_handler();
 	movement_step_handler(delta);
 	pass
 
@@ -38,3 +39,17 @@ func movement(stepSize: int):
 	# Lets move snake
 	translate(_direction * stepSize);
 	pass
+
+#-------------------------------------
+# Input Handler
+#-------------------------------------
+func input_handler():
+	# Handle movement inputs UP, DOWN, LEFT, RIGHT
+	if Input.is_action_pressed("ui_up"):
+		_direction = Vector2.UP;
+	elif Input.is_action_pressed("ui_down"):
+		_direction = Vector2.DOWN;
+	elif Input.is_action_pressed("ui_left"):
+		_direction = Vector2.LEFT;
+	elif Input.is_action_pressed("ui_right"):
+		_direction = Vector2.RIGHT;
