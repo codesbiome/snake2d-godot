@@ -1,4 +1,4 @@
-extends Sprite
+extends KinematicBody2D
 
 # Variables & Data
 var _direction: Vector2 = Vector2.RIGHT;
@@ -37,7 +37,9 @@ func movement_step_handler(deltaTime: float):
 #-------------------------------------
 func movement(stepSize: int):
 	# Lets move snake
-	translate(_direction * stepSize);
+	var rel_vec = _direction * stepSize;
+	var res = move_and_collide(rel_vec);
+	print(res);
 	pass
 
 #-------------------------------------
