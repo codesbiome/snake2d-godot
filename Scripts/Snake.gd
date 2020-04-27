@@ -47,8 +47,8 @@ func movement_step_handler(deltaTime: float):
 # Snake Movement
 #-------------------------------------
 func movement(stepSize: int):
-	# Current position of snake
-	var currentPos = position;
+	# Last position of snake
+	var lastPosition = position;
 	# Lets move snake
 	var rel_vec = _direction * stepSize;
 	# var collision = move_and_collide(rel_vec);
@@ -59,8 +59,8 @@ func movement(stepSize: int):
 	if _tail.size() > 0 :
 		# Get last tail item
 		var lastTail = _tail.back();
-		# Set last tail item position to snake's current position
-		lastTail.position = currentPos;
+		# Set last tail item position to snake's last position
+		lastTail.position = lastPosition;
 		# Enable tail collision
 		lastTail.get_node("CollisionShape2D").disabled = false;
 		# Insert last tail item at first position in array
@@ -73,8 +73,8 @@ func movement(stepSize: int):
 # Input Handler
 #-------------------------------------
 func input_handler():
-	# Current direction
-	var currentDir = _direction;
+	# Last direction of snake
+	var lastDirection = _direction;
 
 	# Handle movement inputs UP, DOWN, LEFT, RIGHT
 	if Input.is_action_pressed("ui_up"):
@@ -87,9 +87,9 @@ func input_handler():
 		_direction = Vector2.RIGHT;
 
 	# Prevent backward movement with tail
-	if currentDir != _direction:
-		if (currentDir + _direction) == Vector2.ZERO && _tail.size():
-			_direction = currentDir;
+	if lastDirection != _direction:
+		if (lastDirection + _direction) == Vector2.ZERO && _tail.size():
+			_direction = lastDirection;
 
 
 #-------------------------------------
