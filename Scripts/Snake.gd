@@ -3,7 +3,6 @@ extends Area2D
 # Variables & Data
 var _direction: Vector2 = Vector2.RIGHT;
 var _accumulator: float = 0;
-var _rng = RandomNumberGenerator.new();
 var _foodSpawnRanges;
 var _hasFood: bool = false;
 var _tail: Array;
@@ -74,6 +73,9 @@ func movement(stepSize: int):
 # Input Handler
 #-------------------------------------
 func input_handler():
+	# Current direction
+	var currentDir = _direction;
+
 	# Handle movement inputs UP, DOWN, LEFT, RIGHT
 	if Input.is_action_pressed("ui_up"):
 		_direction = Vector2.UP;
@@ -83,6 +85,12 @@ func input_handler():
 		_direction = Vector2.LEFT;
 	elif Input.is_action_pressed("ui_right"):
 		_direction = Vector2.RIGHT;
+
+	# Prevent backward movement with tail
+	if currentDir != _direction:
+		if (currentDir + _direction) == Vector2.ZERO && _tail.size():
+			_direction = currentDir;
+
 
 #-------------------------------------
 # Food Spawn Ranges
