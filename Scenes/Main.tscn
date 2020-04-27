@@ -4,8 +4,8 @@
 [ext_resource path="res://Images/Wall.png" type="Texture" id=3]
 [ext_resource path="res://Images/Wall_corner.png" type="Texture" id=4]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 32, 12.6659, 0, 12.6659, 0, 3.50308, 32, 3.50308 )
 
 [sub_resource type="TileSet" id=2]
 1/name = "Wall_corner.png 1"
@@ -32,14 +32,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 1 )
+2/shape = SubResource( 3 )
 2/shape_one_way = false
 2/shape_one_way_margin = 1.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
@@ -63,7 +63,7 @@ __meta__ = {
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="TileMap" type="TileMap" parent="Node2D"]
+[node name="Wall" type="TileMap" parent="Node2D"]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -73,4 +73,4 @@ __meta__ = {
 }
 
 [node name="Snake" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 64, 64 )
+position = Vector2( 65, 64 )

@@ -6,11 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[node name="Snake" type="KinematicBody2D"]
+[node name="Snake" type="Area2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 16, 16 )
@@ -19,3 +16,5 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
+[connection signal="area_entered" from="." to="." method="_on_Snake_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Snake_body_entered"]
