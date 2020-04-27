@@ -62,6 +62,8 @@ func movement(stepSize: int):
 		var lastTail = _tail.back();
 		# Set last tail item position to snake's current position
 		lastTail.position = currentPos;
+		# Enable tail collision
+		lastTail.get_node("CollisionShape2D").disabled = false;
 		# Insert last tail item at first position in array
 		_tail.insert(0, lastTail);
 		# Remove last tail item
@@ -110,6 +112,7 @@ func add_tail():
 	# Create new tail instance and set its position to add as child
 	var tail = TAIL.instance();
 	tail.set_position(position);
+	tail.get_node("CollisionShape2D").disabled = true;
 	get_parent().call_deferred("add_child", tail);
 	# Insert first tail item of snake
 	_tail.insert(0, tail);
@@ -125,4 +128,7 @@ func _on_Snake_area_entered(area):
 		area.queue_free();
 		_hasFood = false;
 		add_tail();
+
+	if "Tail" in area.name:
+		print("DIE SELF!");
 	pass # Replace with function body.
