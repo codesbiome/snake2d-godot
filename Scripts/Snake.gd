@@ -98,5 +98,5 @@ func _on_Snake_area_entered(area):
 	if "Food" in area.name:
 		print("FOOD!");
 		area.queue_free();
-		call_deferred('food_spawner');
+		_hasFood = false;
 	pass # Replace with function body.
