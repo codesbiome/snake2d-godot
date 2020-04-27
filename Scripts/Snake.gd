@@ -6,9 +6,11 @@ var _accumulator: float = 0;
 var _rng = RandomNumberGenerator.new();
 var _foodSpawnRanges;
 var _hasFood: bool = false;
+var _tail: Array;
 
 # Resources
 const FOOD = preload("res://Scenes/Food.tscn");
+const TAIL = preload("res://Scenes/Tail.tscn");
 
 # Constants
 const MOVEMENT_STEP_TIME = 0.2; # seconds
@@ -46,12 +48,24 @@ func movement_step_handler(deltaTime: float):
 # Snake Movement
 #-------------------------------------
 func movement(stepSize: int):
+	# Current position of snake
+	var currentPos = position;
 	# Lets move snake
 	var rel_vec = _direction * stepSize;
 	# var collision = move_and_collide(rel_vec);
 	translate(rel_vec);
 	# Snake has the food to eat?
 	if !_hasFood: food_spawner();
+	# Have we got any tail to move?
+	if _tail.size() > 0 :
+		# Get last tail item
+		var lastTail = _tail.back();
+		# Set last tail item position to snake's current position
+		lastTail.position = currentPos;
+		# Insert last tail item at first position in array
+		_tail.insert(0, lastTail);
+		# Remove last tail item
+		_tail.remove(_tail.size() - 1);
 	pass
 
 #-------------------------------------
@@ -89,6 +103,17 @@ func food_spawner():
 	get_parent().add_child(food);
 	_hasFood = true;
 
+#-------------------------------------
+# Add tail to Snake
+#-------------------------------------
+func add_tail():
+	# Create new tail instance and set its position to add as child
+	var tail = TAIL.instance();
+	tail.set_position(position);
+	get_parent().call_deferred("add_child", tail);
+	# Insert first tail item of snake
+	_tail.insert(0, tail);
+	pass
 
 func _on_Snake_body_entered(body):
 	if "Wall" in body.name:
@@ -99,4 +124,5 @@ func _on_Snake_area_entered(area):
 		print("FOOD!");
 		area.queue_free();
 		_hasFood = false;
+		add_tail();
 	pass # Replace with function body.
