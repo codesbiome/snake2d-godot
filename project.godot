@@ -22,3 +22,7 @@ run/main_scene="res://Scenes/Main.tscn"
 
 window/size/width=960
 window/size/height=640
+
+[logging]
+
+file_logging/enable_file_logging=true
