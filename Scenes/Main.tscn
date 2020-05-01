@@ -46,29 +46,6 @@ points = PoolVector2Array( 32, 12.6659, 0, 12.6659, 0, 3.50308, 32, 3.50308 )
 
 [node name="Main" type="Node"]
 
-[node name="Control" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -29.5
-margin_top = -7.0
-margin_right = 29.5
-margin_bottom = 7.0
-text = "Snake 2D"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Wall" type="TileMap" parent="Node2D"]
@@ -82,3 +59,32 @@ __meta__ = {
 
 [node name="Snake" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( 64, 64 )
+
+[node name="ControlBar" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 32.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreText" type="Label" parent="ControlBar"]
+margin_left = 449.0
+margin_top = 9.0
+margin_right = 498.0
+margin_bottom = 23.0
+text = "SCORE :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreCount" type="Label" parent="ControlBar"]
+margin_left = 502.0
+margin_top = 9.0
+margin_right = 510.0
+margin_bottom = 23.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="snake_eat_food" from="Node2D/Snake" to="Node2D/Snake" method="_on_Snake_snake_eat_food"]

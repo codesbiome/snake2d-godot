@@ -8,14 +8,17 @@ var _hasFood: bool = false;
 var _tail: Array;
 var _grid = [];
 var _free_grid = [];
+var _scoreCount = 0;
 
 # Resources
 const FOOD = preload("res://Scenes/Food.tscn");
 const TAIL = preload("res://Scenes/Tail.tscn");
 
 # Constants
-const MOVEMENT_STEP_TIME = 0.2; # seconds
+const MOVEMENT_STEP_TIME = 0.1; # seconds
 const MOVEMENT_STEP_SIZE = 32; # pixels
+
+signal snake_eat_food;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -162,7 +165,19 @@ func _on_Snake_area_entered(area):
 		area.queue_free();
 		_hasFood = false;
 		add_tail();
+		emit_signal('snake_eat_food');
 
 	if "Tail" in area.name:
 		print("DIE SELF!");
+	pass # Replace with function body.
+
+
+func update_score():
+	var score = get_node("/root/Main/ControlBar/ScoreCount") as Label;
+	_scoreCount = _scoreCount + 1;
+	score.text = str(_scoreCount);
+	pass
+
+func _on_Snake_snake_eat_food():
+	update_score();
 	pass # Replace with function body.
