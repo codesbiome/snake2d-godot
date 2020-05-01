@@ -107,7 +107,7 @@ func food_spawner():
 	# Allocate free grid space
 	alloc_free_grid();
 	# Random Spawn Position from _free_grid positions
-	var randomSpawnPos = _free_grid[randi() % (_free_grid.size() + 1)];
+	var randomSpawnPos = _free_grid[randi() % _free_grid.size()];
 	# Create Food Instance
 	var food = FOOD.instance();
 	# Set Food position
