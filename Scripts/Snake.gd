@@ -3,7 +3,6 @@ extends Area2D
 # Variables & Data
 var _direction: Vector2 = Vector2.RIGHT;
 var _accumulator: float = 0;
-var _foodSpawnRanges;
 var _hasFood: bool = false;
 var _tail: Array;
 var _grid = [];
