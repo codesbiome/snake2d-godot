@@ -104,7 +104,23 @@ func grid_setup():
 # Food Spawner
 #-------------------------------------
 func food_spawner():
+	# Allocate free grid space
+	alloc_free_grid();
+	# Random Spawn Position from _free_grid positions
+	var randomSpawnPos = _free_grid[randi() % (_free_grid.size() + 1)];
+	# Create Food Instance
+	var food = FOOD.instance();
+	# Set Food position
+	food.position = Vector2(randomSpawnPos.x, randomSpawnPos.y);
+	# Add as Child
+	get_parent().add_child(food);
+	# Snake now has food to eat!
+	_hasFood = true;
+	# Print out
+	print("Food Spawn at : ", randomSpawnPos);
 
+
+func alloc_free_grid():
 	# Clear free grid items
 	_free_grid.clear();
 
@@ -122,19 +138,6 @@ func food_spawner():
 
 		# Add grid slot as free
 		_free_grid.append(g);
-
-	# Random Spawn Position from _free_grid positions
-	var randomSpawnPos = _free_grid[randi() % (_free_grid.size() + 1)];
-	# Create Food Instance
-	var food = FOOD.instance();
-	# Set Food position
-	food.position = Vector2(randomSpawnPos.x, randomSpawnPos.y);
-	# Add as Child
-	get_parent().add_child(food);
-	# Snake now has food to eat!
-	_hasFood = true;
-	# Print out
-	print("Food Spawn at : ", randomSpawnPos);
 
 #-------------------------------------
 # Add tail to Snake
