@@ -6,6 +6,8 @@ var _accumulator: float = 0;
 var _foodSpawnRanges;
 var _hasFood: bool = false;
 var _tail: Array;
+var _grid = [];
+var _free_grid = [];
 
 # Resources
 const FOOD = preload("res://Scenes/Food.tscn");
@@ -19,8 +21,8 @@ const MOVEMENT_STEP_SIZE = 32; # pixels
 func _ready():
 	# Randomize
 	randomize();
-	# Spawn ranges of our viewport on X axis
-	_foodSpawnRanges = food_spawnRanges();
+	# Setup Grid
+	grid_setup();
 	pass
 
 # Called during the physics processing step of the main loop.
@@ -92,26 +94,47 @@ func input_handler():
 			_direction = lastDirection;
 
 
-#-------------------------------------
-# Food Spawn Ranges
-#-------------------------------------
-func food_spawnRanges():
-	return {
-		"x": range(MOVEMENT_STEP_SIZE, get_viewport().size.x - MOVEMENT_STEP_SIZE, MOVEMENT_STEP_SIZE),
-		"y": range(MOVEMENT_STEP_SIZE, get_viewport().size.y - MOVEMENT_STEP_SIZE, MOVEMENT_STEP_SIZE)
-	};
+func grid_setup():
+	for x in range(MOVEMENT_STEP_SIZE, get_viewport().size.x - MOVEMENT_STEP_SIZE, MOVEMENT_STEP_SIZE):
+		for y in range(MOVEMENT_STEP_SIZE, get_viewport().size.y - MOVEMENT_STEP_SIZE, MOVEMENT_STEP_SIZE):
+			_grid.append(Vector2(x, y));
+	pass
 
 #-------------------------------------
 # Food Spawner
 #-------------------------------------
 func food_spawner():
-	# Random spawn range on X axis
-	var randomSpawnX = _foodSpawnRanges.x[randi() % _foodSpawnRanges.x.size()];
-	var randomSpawnY = _foodSpawnRanges.y[randi() % _foodSpawnRanges.y.size()];
+
+	# Clear free grid items
+	_free_grid.clear();
+
+	# Snake's full position including tail
+	var snakePos = [];
+	snakePos.append(position);
+	for t in _tail:
+		snakePos.append(t.position);
+
+	# Lets loop through our grid positions
+	for g in _grid:
+		# Snake has position matching with this grid slot
+		if snakePos.has(g):
+			continue;
+
+		# Add grid slot as free
+		_free_grid.append(g);
+
+	# Random Spawn Position from _free_grid positions
+	var randomSpawnPos = _free_grid[randi() % (_free_grid.size() + 1)];
+	# Create Food Instance
 	var food = FOOD.instance();
-	food.position = Vector2(randomSpawnX, randomSpawnY);
+	# Set Food position
+	food.position = Vector2(randomSpawnPos.x, randomSpawnPos.y);
+	# Add as Child
 	get_parent().add_child(food);
+	# Snake now has food to eat!
 	_hasFood = true;
+	# Print out
+	print("Food Spawn at : ", randomSpawnPos);
 
 #-------------------------------------
 # Add tail to Snake

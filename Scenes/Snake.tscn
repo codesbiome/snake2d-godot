@@ -16,5 +16,8 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
+__meta__ = {
+"_editor_description_": ""
+}
 [connection signal="area_entered" from="." to="." method="_on_Snake_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Snake_body_entered"]
