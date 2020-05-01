@@ -11,3 +11,4 @@ mono_crash.*.json
 .directory
 *~
 .vscode
+.export
