@@ -1,13 +1,13 @@
 extends Area2D
 
 # Variables & Data
-var _direction: Vector2 = Vector2.RIGHT;
-var _accumulator: float = 0;
-var _hasFood: bool = false;
-var _tail: Array;
-var _grid = [];
-var _free_grid = [];
-var _scoreCount = 0;
+var _direction: Vector2 = Vector2.RIGHT; # Current direction of snake
+var _accumulator: float = 0; # Time accumulator for custom movement steps
+var _hasFood: bool = false; # Snake has food in vicinity?
+var _tail: Array; # Snake tail items
+var _grid = []; # Grid slots
+var _free_grid = []; # Free Grid Slots (Not occupied by other things like snake, tails etc)
+var _scoreCount = 0; # Score counter
 
 # Resources
 const FOOD = preload("res://Scenes/Food.tscn");
@@ -17,6 +17,7 @@ const TAIL = preload("res://Scenes/Tail.tscn");
 const MOVEMENT_STEP_TIME = 0.1; # seconds
 const MOVEMENT_STEP_SIZE = 32; # pixels
 
+# Signals
 signal snake_eat_food;
 
 # Called when the node enters the scene tree for the first time.
